@@ -1,0 +1,23 @@
+Stack is capable of inserting and deleting at the end of a list but queue accepts elements from one end and elements are removed from the other end. However, a queue can be implemented by two stacks, namely \textit{inbox}, $S_{i}$ and \textit{outbox}, $S_{o}$.
+
+We will use $S_{i}$ for Insert-Queue and $S_{o}$ for Delete-Queue operation. Therefore, we push an element into $S_{i}$ to insert a new element. Delete operation contains two scenarios according to state of $S_{o}$. If it isn't empty, we pop its top element; otherwise, we transfer all elements from $S_{i}$ to $S_{o}$ respectively by popping from $S_{i}$ and pushing into $S_{o}$. Then, we have the required element at the top of $S_{o}$ so we pop it.
+
+For analysis, we define potential function: $\phi = 2n_{i}$, where $n_{i}$ is the number of elements in stack $S_{i}$. Then, we have the following amortized cost for each Insert-Queue operation:
+
+$$
+	actual cost + \Delta\Phi = 1 + 2 \leq O(1)
+$$
+
+For each Delete-Queue operation, we have to consider two cases. When $S_{o}$ is not empty, the amortized cost is:
+
+$$
+	actual cost + \Delta\Phi = 1 + 0 \leq O(1)
+$$
+
+When $S_{o}$ is empty, the amortized cost is:
+
+$$
+	actual cost + \Delta\Phi = 2n_{i} + 1 + (0 - 2n_{i}) \leq O(1)
+$$
+
+As a result, amortized cost of each Insert-Queue and Delete-Queue operations is constant.
