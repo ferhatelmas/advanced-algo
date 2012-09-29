@@ -11,7 +11,7 @@ $$
 For each Delete-Queue operation, we have to consider two cases. First, easier one, when $S_{o}$ is not empty, the amortized cost is:
 
 $$
-	actual cost + \Delta\Phi = stack\text{ }pop + change\text{ }of\text{ }inbox = 1 + 0 \leq O(1)
+	actual\text{ }cost + \Delta\Phi = stack\text{ }pop + change\text{ }of\text{ }inbox = 1 + 0 \leq O(1)
 $$
 
 When $S_{o}$ is empty, the amortized cost is:
@@ -22,3 +22,61 @@ When $S_{o}$ is empty, the amortized cost is:
 \end{align*}
 
 As a result, amortized cost of each Insert-Queue and Delete-Queue operations is constant.
+
+Double-ended queue can also be implemented by two stack that are mounted each other as in the following figure.
+
+\begin{table}[ht]
+\begin{center}
+\begin{tabular}{p{5cm}||p{5cm}}
+  \hline  
+  & \\
+  \hline
+  \multicolumn{2}{p{8cm}}{ \hbox{front \hspace{2cm} $S_{i}$  \hspace{4cm} $S_{o}$ \hspace{2cm} back}} \\
+\end{tabular}
+\caption{Double-ended queue via two regular stacks}
+\end{center}
+\end{table}
+
+\clearpage
+For each operation, we execute following steps:
+\begin{itemize}
+\item insert-front: push the element into $S_{i}$
+\item insert-back: push the element into $S_{o}$
+\item delete-back: check if there is an element in $S_{o}$. If exists, pop top element and return it. If $S_{o}$ is empty and $S_{i}$ is \textit{not} empty, pop and push all elements from $S_{i}$ to $S_{o}$ one by one, and at the end pop top element of $S_{o}$ and return it. If both are empty, delete operation couldn't be completed, error is returned.
+\item delete-front: this operation is exactly opposite of delete-back operation. Firstly, check $S_{i}$, if it isn't empty, pop top element and return it. Otherwise, if $S_{o}$ isn't empty, transfer elements from $S_{o}$ to $S_{i}$ one by one, and at the end pop top element and return it. If both are empty, error is returned.
+\end{itemize}
+
+With above implementation, we can easily find a sequence whose amortized cost isn't $O(1)$. Sequence:
+
+\begin{itemize}
+\item $n$ insert-back
+\item $\frac{n}{2}$ delete-front and $\frac{n}{2}$ delete-back alternating between each other
+\end{itemize} 
+
+We have done $2n$ operation totally and total cost is:
+
+$$
+n + (2n + 1) + [2(n-1) + 1] + [2(n-2) + 1] + \dots + [2*1 + 1] = n^{2} + 3n = \Theta(n^{2})
+$$
+
+In this equation, first term is the cost of $n$ insert-back operations and following terms are consecutive delete operations. Since the number of operations is the order of $\Theta(n)$ and cost is the order $\Theta(n^{2})$, this is a counterexample to show that amortized cost of each four operation isn't the order of $O(1)$, constant. Costly operations are delete operations so one of them should be removed and in another way, we have used one insert type so removing it wouldn't help us to reduce our cost. However, one of the delete operations is removed, it can be shown that remaining three operations have constant amortized cost0. For analysis, let's remove delete-back operation and use potential function $\Theta = 2n_{o}$ where $n_{o}$ is the number of elements in $S_{o}$. Therefore, we have following amortized cost for insert-back:
+$$
+actual\text{ }cost + \Delta\Phi = 1 + 2 \leq O(1)
+$$
+
+Insert-front:
+$$
+actual\text{ }cost + \Delta\Phi = 1 + 0 \leq O(1)
+$$
+
+When $S_{i}$ isn't empty, delete-front:
+$$
+actual\text{ }cost + \Delta\Phi = 1 + 0 \leq O(1)
+$$
+
+When $S_{i}$ is empty, delete-front:
+$$
+actual\text{ }cost + \Delta\Phi = (2n_{o} + 1) + (0 - 2n_{o}) \leq O(1)
+$$
+
+As seen above, each operation has constant time amortized cost.
