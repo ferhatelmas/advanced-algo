@@ -1,0 +1,216 @@
+\documentclass[a4paper,11pt]{article}
+%
+% HOW TO USE THIS TEMPLATE:
+%
+% IN THE TWO INDICATED PLACES BELOW,
+%   ENTER YOUR NAMES AND THE NUMBER OF THE HOMEWORK
+%
+% FOR EACH PROBLEM IN THE SET, WRITE YOUR SOLUTION IN A FILE
+%   NAMED "Problem1.tex", "Problem2.tex", etc.
+%   THESE SOLUTIONS FILES HAVE NO PREAMBLE AND
+%   NO \begin{document} \end{document}
+%   (THEY JUST GET INLINED WHEN RUNNING LaTeX)
+%
+% PLACE THESE SOLUTIONS FILES AND THE TEMPLATE IN THE SAME DIRECTORY
+%
+% RUN LaTeX
+%
+% IF YOU NEED TO ADD PACKAGES (E.G., FOR HANDLING FIGURES, OR
+%   FOR RUNNING PDFLaTeX), PUT IN A NEW \usepackage LINE AS
+%   SHOWN BELOW
+
+%
+%%%% REPLACE Doe, Smith, and Wilson WITH YOUR LAST NAMES
+%%%% NOTE: IF YOUR LAST NAME HAS ACCENTS, SOME LaTeX COMMANDS ARE:
+%%%%       for diaeresis/umlaut ", as in German, use \"a, \"u, \"o, etc.
+%%%%       for grave accent `, use \`e, \`a, \`u
+%%%%       for acute accent ', use \'a, \'e, \'u
+%%%%       for tilde ~, use \tilde{a}, \tilde{o}
+%%%%       for caret ^, use \hat{e}, \hat{o}
+%%%%	   if you need an accent on an i, say an umlaut, use \"\i{}
+%%%%		the \i{} is an i without its dot; e.g., na\"\i{}ve
+%%%%	   these all work well with lower-case letters,
+%%%%	        but only so-so with upper-case letters
+%%%%
+  \def\myname{Doe, Smith, and Wilson}
+
+%%%% REPLACE xxx WITH CORRECT HOMEWORK NUMBER
+%  \def\mynumber{xxx}
+  \def\mynumber{8}
+
+  \newcounter{problems}
+%%%% REPLACE yyy WITH CORRECT NUMBER OF PROBLEMS IN HOMEWORK
+%%%% yyy SHOULD BE A NUMBER BETWEEN 3 AND 7
+%  \setcounter{problems}{yyy}
+  \setcounter{problems}{7}
+
+%%%% IF ADDITIONAL PACKAGES ARE NEEDED, UNCOMMENT LINE BELOW
+%%%% AND ENTER THE PACKAGE NAMES
+%  \usepackage{additional_package_1,additional_package_2}
+
+
+
+% DO NOT MODIFY THIS NEXT PART
+%%%%%
+  \usepackage{times,amsmath,pslatex,graphicx,ifthen}
+  \newcounter{problem}
+  \setcounter{problem}{0}
+  \makeatletter
+  \def\ps@headings{%
+    \let\@mkboth\markboth
+    \def\@evenfoot{\hfil\large\sf Homework \mynumber, Problem \theproblem\hfil}
+    \def\@oddfoot{\@evenfoot}
+    \def\@evenhead{\large\sc\myname\hfil\it\today\hfil\sf P.~\thepage}
+    \def\@oddhead{\@evenhead}}
+  \makeatother
+  \pagestyle{headings}
+  \advance\textwidth by16mm
+  \advance\oddsidemargin by-8mm
+  \advance\textheight by10mm
+%%%%%
+
+\begin{document}
+
+\ifthenelse{\equal{\theproblems}{3}}{%
+\begin{center}
+  \LARGE\sf
+  \begin{tabular}{||c|c|c||}
+    \hline\hline
+    Prob.~1 & Prob.~2 & Prob.~3 \\
+    \hline
+    &&\\
+    \hline\hline
+  \end{tabular}
+\end{center}}{}
+\ifthenelse{\equal{\theproblems}{4}}{%
+\begin{center}
+  \LARGE\sf
+  \begin{tabular}{||c|c|c|c||}
+    \hline\hline
+    Prob.~1 & Prob.~2 & Prob.~3 & Prob.~4\\
+    \hline
+    &&&\\
+    \hline\hline
+  \end{tabular}
+\end{center}}{}
+\ifthenelse{\equal{\theproblems}{5}}{%
+\begin{center}
+  \LARGE\sf
+  \begin{tabular}{||c|c|c|c|c||}
+    \hline\hline
+    Prob.~1 & Prob.~2 & Prob.~3 & Prob.~4 & Prob.~5\\
+    \hline
+    &&&&\\
+    \hline\hline
+  \end{tabular}
+\end{center}}{}
+\ifthenelse{\equal{\theproblems}{6}}{%
+\begin{center}
+  \LARGE\sf
+  \begin{tabular}{||c|c|c|c|c|c||}
+    \hline\hline
+    Prob.~1 & Prob.~2 & Prob.~3 & Prob.~4 & Prob.~5 & Prob.~6\\
+    \hline
+    &&&&&\\
+    \hline\hline
+  \end{tabular}
+\end{center}}{}
+\ifthenelse{\equal{\theproblems}{7}}{%
+\begin{center}
+  \LARGE\sf
+  \begin{tabular}{||c|c|c|c|c|c|c||}
+    \hline\hline
+    Prob.~1 & Prob.~2 & Prob.~3 & Prob.~4 & Prob.~5 & Prob.~6 & Prob.~7\\
+    \hline
+    &&&&&&\\
+    \hline\hline
+  \end{tabular}
+\end{center}}{}
+
+
+\bigskip\bigskip
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{flushleft}
+  \addtocounter{problem}{1}
+  \large\sf Problem \theproblem .
+\end{flushleft}
+
+\input{problem1.tex}
+\addtocounter{problems}{-1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\begin{flushleft}
+  \addtocounter{problem}{1}
+  \large\sf Problem \theproblem .
+\end{flushleft}
+
+\input{problem2.tex}
+\addtocounter{problems}{-1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\begin{flushleft}
+  \addtocounter{problem}{1}
+  \large\sf Problem \theproblem .
+\end{flushleft}
+
+\input{problem3.tex}
+\addtocounter{problems}{-1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ifthenelse{\equal{\theproblems}{0}}
+{}%
+{%
+
+\newpage
+\begin{flushleft}
+  \addtocounter{problem}{1}
+  \large\sf Problem \theproblem .
+\end{flushleft}
+
+\input{problem4.tex}
+\addtocounter{problems}{-1}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ifthenelse{\equal{\theproblems}{0}}
+{}%
+{%
+\newpage
+\begin{flushleft}
+  \addtocounter{problem}{1}
+  \large\sf Problem \theproblem .
+\end{flushleft}
+
+\input{problem5.tex}
+\addtocounter{problems}{-1}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ifthenelse{\equal{\theproblems}{0}}
+{}%
+{%
+\newpage
+\begin{flushleft}
+  \addtocounter{problem}{1}
+  \large\sf Problem \theproblem .
+\end{flushleft}
+
+\input{problem6.tex}
+\addtocounter{problems}{-1}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ifthenelse{\equal{\theproblems}{0}}
+{}%
+{%
+\newpage
+\begin{flushleft}
+  \addtocounter{problem}{1}
+  \large\sf Problem \theproblem .
+\end{flushleft}
+
+\input{problem7.tex}
+\addtocounter{problems}{-1}
+}
+\end{document}
