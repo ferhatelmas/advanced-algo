@@ -5,13 +5,13 @@ We will use $S_{i}$ for Insert-Queue and $S_{o}$ for Delete-Queue operation. The
 For analysis, we define potential function: $\Phi = 2n_{i}$, where $n_{i}$ is the number of elements in stack $S_{i}$. There is a multiplier 2 since when \textit{outbox} is empty, we transfer elements from \textit{inbox} by pop and push, where each one has a cost of 1 unit, totally 2. Then, we have the following amortized cost for each Insert-Queue operation:
 
 $$
-	actual\text{ }cost + \Delta\Phi = stack\text{ }push + change\text{ }of\text{ }inbox = 1 + 2 \leq O(1)
+actual\text{ }cost + \Delta\Phi = stack\text{ }push + change\text{ }of\text{ }inbox = 1 + 2 \leq O(1)
 $$
 
 For each Delete-Queue operation, we have to consider two cases. First, easier one, when $S_{o}$ is not empty, the amortized cost is:
 
 $$
-	actual\text{ }cost + \Delta\Phi = stack\text{ }pop + change\text{ }of\text{ }inbox = 1 + 0 \leq O(1)
+actual\text{ }cost + \Delta\Phi = stack\text{ }pop + change\text{ }of\text{ }inbox = 1 + 0 \leq O(1)
 $$
 
 When $S_{o}$ is empty, the amortized cost is:
