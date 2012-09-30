@@ -1,0 +1,97 @@
+We define $A[n]$ as an array of $n$ positions and actual operation cost of \textit{insert} and \textit{delete} is 1 if there is no need to adjust the length of the array.
+
+Potential function:
+$$
+\Phi(n) = 2n - m
+$$
+
+$n$ is the amount of non empty array cells and $m$ is total number of array cells.
+
+Amortized cost of each insertion:
+\begin{itemize}
+\item $n < m$
+\begin{itemize}
+\item actual cost is 1, $n$ increases by 1 and $m$ doesn't change.
+$$
+actual\text{ }cost + \Delta\Phi = 1 + [(2(n+1)-m) - (2n-m)] = 1 + 2 = 3
+$$
+\end{itemize}
+
+\item $n = m$
+\begin{itemize}
+\item actual cost is $n + 1$ since array is doubled($m^{'} = 2n$).
+$$
+actual\text{ }cost + \Delta\Phi = (n+1) + [(2(n+1)-2n) - (2n - n)] = n+1 + 2-n = 3
+$$
+\end{itemize}
+\end{itemize}
+
+Amortized cost of each deletion:
+\begin{itemize}
+\item $n > \frac{m}{4}$
+\begin{itemize}
+\item actual cost is 1, $n$ decreases by 1 and $m$ doesn't change.
+$$
+actual\text{ }cost + \Delta\Phi = 1 + [(2(n-1)-m) - (2n-m)] = 1 + (-2) = -1
+$$
+\end{itemize}
+
+\item $n = \frac{m}{4}$
+\begin{itemize}
+\item actual cost is $n-1$ since array is halved($m^{'} = \frac{m}{2} = 2n$)
+$$
+actual\text{ }cost + \Delta\Phi = (n-1) + [(2(n-1)-2n) - (2n-4n)] = (n-1) + (-2+2n) = 3n - 3
+$$
+\end{itemize}
+\end{itemize}
+
+The worst case would be to have $n + 1$ initial insertions until to double the array and then $\frac{n}{2} + 1$ deletions until to halve the array again and finally another $n$ insertions. Amortized cost of this sequence:
+\begin{itemize}
+\item $n$ initial insertions:
+$$
+n * (actual\text{ }cost + \Delta\Phi) = n * 3 = 3n
+$$
+\item array will be doubled on the $n+1$th insertion but its cost is also 3 by above analysis.
+\item $\frac{n}{2}$ deletions:
+$$
+\frac{n}{2} * (actual\textit{ }cost + \Delta\Phi) = \frac{n}{2} * (-1) = \frac{-n}{2}
+$$
+\item array will be halved on the $\frac{n}{2} + 1$th deletion and cost is $3\frac{n}{2}-3$ by above reasoning.
+\end{itemize}
+
+Totally, we have:
+$$
+3(n+1) + (n-3) = 4n (constant\text{ }time)
+$$
+
+Since we have done operations in the order of $\Theta(n)$ and its cost is in the order of $\Theta(n)$, each operation has constant amortized cost.
+
+If we choose to halve the array as soon as the number of elements falls below one half of the allocated size, then the amortized cost for the delete operation does not change:
+\begin{itemize}
+\item $n > \frac{m}{2}$
+\begin{itemize}
+\item actual cost is 1, $n$ decreases by 1 and $m$ doesn't change.
+$$
+actual\text{ }cost + \Delta\Phi = 1 + [(2(n-1)-m) - (2n-m)] = 1 + (-2) = -1
+$$
+\end{itemize}
+
+\item $n = \frac{m}{2}$
+\begin{itemize}
+\item actual cost is $n-1$ since array is halved($m^{'} = \frac{m}{2} = n$)
+$$
+actual\text{ }cost + \Delta\Phi = (n-1) + [(2(n-1)-n) - (2n-2n)] = (n-1) + (n-2) = 2n - 3
+$$
+\end{itemize}
+\end{itemize}
+
+However, supposing we have an empty array with $n$ places and then the following sequence of operations: 
+\begin{itemize}
+\item $n + 1$ insertions
+\item 2 deletions
+\item 2 insertions
+\item 2 deletions
+\item $\dots$
+\end{itemize}
+
+While in the first case the above sequence could be executed without resizing the array, in the second case, the above sequence requires continuous resizing. Therefore, we are doing operations in the order of $\Theta(n)$ for only 2 array operations.
