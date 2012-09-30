@@ -54,7 +54,7 @@ $decrement\text{ }operation$: \\
 \begin{itemize}
 \item If last bit is "1", it is flipped to "0"
 \begin{itemize}
-\item $a0 \rightarrow a1$
+\item $a1 \rightarrow a0$
 \end{itemize}
 \item If last is "0" and previos bit is "1", then fitstring ends with "10", so "10" is flipped to "00" since last two bits represent value of 1.
 \begin{itemize}
@@ -74,7 +74,7 @@ $decrement\text{ }operation$: \\
 \item $100000000\dots00 \rightarrow 10101010\dots10$
 \item $100000000\dots0 \rightarrow 10101010\dots0$
 \end{itemize}
-\item Cost is depends on the number of consecutive 0s but leaves alternating 0 and 1s and decrement can create at most one pair adjacent zero pair.
+\item Cost depends on the number of consecutive 0s but leaves alternating 0 and 1s and decrement can create at most one pair adjacent zero pair.
 \end{itemize}
 \end{itemize}
 
