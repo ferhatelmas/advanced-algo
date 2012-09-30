@@ -1,0 +1,89 @@
+Fitstring representation are \textbf{not} unique because "011" can always be written as a carry in the form of "100". Moreover, even if we prefer one over another and use it whenever possible, some numbers can be written in multiple forms.
+
+$$
+1(0)\{2n+1, 2n+1\} = 1(01)\{n, n\}
+$$ 
+
+In the former representation "1" is followed by $2n + 1$ "0" and in the latter, "1" is followed $n$ "01". 
+
+\vspace{0.3cm}
+$increase\text{ }operation$: \\
+First, how a carry is created:
+\begin{itemize} 
+\itemsep -2pt
+\item If last bit is "0", it is just flipped to "1".
+\begin{itemize}
+\item $a0 \rightarrow a1$
+\end{itemize}
+\item If last bit is "1", the previous bit is considered
+\begin{itemize}
+\itemsep -2pt
+\item if it is "0", the fitstring ends with "01" and this "01" is flipped to "11". Unlike binary, this works because last two bits represent value of 1.
+\begin{itemize}
+\item $a01 \rightarrow a11$
+\end{itemize}
+\item if is is also "1", the fitstring ends with "11" and this "11" is flipped to "01". Then, a carry is created and propagated to more significant bits.
+\begin{itemize}
+\item $a11 \rightarrow (a+1)01$
+\end{itemize}
+
+\end{itemize}
+\end{itemize}
+
+Secondly, general case at the position of $i$ with a carry:
+\begin{itemize}
+\item If it is "0", it is just flipped to "1".
+\begin{itemize}
+\item $a(0+1)b \rightarrow a1b$ 
+\end{itemize}
+\item If it is "1", the number increased to $2F_{i}$ and carry must be propagated. By using the property of fibonacci numbers, $2F_{i} = F_{i} + F_{i-2}$, carry can be propagated one up and two down. Then, following rules are defined:
+\begin{itemize}
+\item $0(1+1)00  \rightarrow 1001$ 
+\item $0(1+1)01a \rightarrow 1010(a+1)$ 
+\item $1(1+1)00  \rightarrow (1+1)001$ 
+\item $1(1+1)01a \rightarrow (1+1)010(a+1)$ 
+\end{itemize}
+\end{itemize}
+
+As a result of these rules, the cost depends on propagation of the carry. However, each increment leaves alternating "0" and "1"s and at most one pair of adjacent "1".
+
+\clearpage
+
+$decrement\text{ }operation$: \\
+\vspace{-0.3cm}
+\begin{itemize}
+\item If last bit is "1", it is flipped to "0"
+\begin{itemize}
+\item $a0 \rightarrow a1$
+\end{itemize}
+\item If last is "0" and previos bit is "1", then fitstring ends with "10", so "10" is flipped to "00" since last two bits represent value of 1.
+\begin{itemize}
+\item $a10 \rightarrow a00$
+\end{itemize}
+\item If last two bits are "00" but third bit is "1", then fitstring ends with "100", so "100" is flipped to "010".
+\begin{itemize}
+\item $a100 \rightarrow a010$
+\end{itemize}
+\item Otherwise, we need a borrow from more significant bits.
+\begin{itemize}
+\item Search least significant "1" in the fitstring and assume it is found at position $i$.
+\item As explained above, this fit should have two zeros to its right. Therefore, "100" is flipped to "011".
+\item We have a "1" fit at the position $i-2$ and if it has two zeros to its right, recursively the previous step is also applied this fit.
+\item At the end, we hit the base cases and do the actual decrement:
+\begin{itemize}
+\item $100000000\dots00 \rightarrow 10101010\dots10$
+\item $100000000\dots0 \rightarrow 10101010\dots0$
+\end{itemize}
+\item Cost is depends on the number of consecutive 0s but leaves alternating 0 and 1s and decrement can create at most one pair adjacent zero pair.
+\end{itemize}
+\end{itemize}
+
+Increment and decrement are costly in terms of trailing 1s and 0s, respectively but they transform the fitstring into alternation and have the next operation taken constant time.
+
+Since cost depends on consecutive fits, we need to count them where alternation is the perfect case. Our potential function keeps track of the number of adjacent same fits:
+
+$$
+\Phi(f) = \Phi(f_{n}f_{n-1}f_{n-2} \dots f_{1}f_{0}) = \sum_{i=1}^{n} f_{i-1} = f_{i}
+$$
+
+If an operation has a real cost of $c$, then it must have $c$ identical trailing fits. Moreover, it should have arrived at least the potential of $c-1$ so that it contains $c$  identical fits but operation decreases potential by $c-1$ via transforming string into an alternation. However, each operation can create one pair identical fits in doing alternation but this cost is dominated by constant. As a result, the sum of total cost and potential change is bounded by a constant.
