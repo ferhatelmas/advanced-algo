@@ -40,9 +40,9 @@
 
   \newcounter{problems}
 %%%% REPLACE yyy WITH CORRECT NUMBER OF PROBLEMS IN HOMEWORK
-%%%% yyy SHOULD BE A NUMBER BETWEEN 3 AND 7
+%%%% yyy SHOULD BE A NUMBER BETWEEN 4 AND 7
 %  \setcounter{problems}{yyy}
-  \setcounter{problems}{7}
+  \setcounter{problems}{5}
 
 %%%% IF ADDITIONAL PACKAGES ARE NEEDED, UNCOMMENT LINE BELOW
 %%%% AND ENTER THE PACKAGE NAMES
@@ -50,7 +50,44 @@
 
 
 
-% DO NOT MODIFY THIS NEXT PART
+% DO NOT MODIFY THE REST OF THE FILE
+%%%% Recursive functions
+  \def\tableformat#1{
+    |c  
+    \ifnum#1<\theproblems
+      \tableformat{\number\numexpr#1+1}
+    \fi
+  }
+
+  \def\tablecontent#1{
+    \ifnum#1<\theproblems
+      Prob.~#1 &
+      \tablecontent{\number\numexpr#1+1}
+    \fi 
+    \ifnum#1=\theproblems
+      Prob.~#1
+    \fi
+  }
+
+  \def\tablevoid#1{
+    \ifnum#1<\theproblems
+      &
+      \tablevoid{\number\numexpr#1+1}
+    \fi
+  }
+
+  \def\problemscontent#1{
+    \ifnum#1>\theproblems\else
+      \ifnum#1>1\newpage\fi
+      \addtocounter{problem}{1}
+      \begin{flushleft}
+        \large\sf Problem \theproblem .
+      \end{flushleft}
+      \input{Problem#1.tex}
+      \problemscontent{\number\numexpr#1+1}
+    \fi
+  }
+
 %%%%%
   \usepackage{times,amsmath,pslatex,graphicx,ifthen}
   \newcounter{problem}
@@ -71,146 +108,19 @@
 
 \begin{document}
 
-\ifthenelse{\equal{\theproblems}{3}}{%
 \begin{center}
   \LARGE\sf
-  \begin{tabular}{||c|c|c||}
+  \begin{tabular}{|\tableformat{1}||}
     \hline\hline
-    Prob.~1 & Prob.~2 & Prob.~3 \\
+    \tablecontent{1} \\
     \hline
-    &&\\
+    \tablevoid{1}\\
     \hline\hline
   \end{tabular}
-\end{center}}{}
-\ifthenelse{\equal{\theproblems}{4}}{%
-\begin{center}
-  \LARGE\sf
-  \begin{tabular}{||c|c|c|c||}
-    \hline\hline
-    Prob.~1 & Prob.~2 & Prob.~3 & Prob.~4\\
-    \hline
-    &&&\\
-    \hline\hline
-  \end{tabular}
-\end{center}}{}
-\ifthenelse{\equal{\theproblems}{5}}{%
-\begin{center}
-  \LARGE\sf
-  \begin{tabular}{||c|c|c|c|c||}
-    \hline\hline
-    Prob.~1 & Prob.~2 & Prob.~3 & Prob.~4 & Prob.~5\\
-    \hline
-    &&&&\\
-    \hline\hline
-  \end{tabular}
-\end{center}}{}
-\ifthenelse{\equal{\theproblems}{6}}{%
-\begin{center}
-  \LARGE\sf
-  \begin{tabular}{||c|c|c|c|c|c||}
-    \hline\hline
-    Prob.~1 & Prob.~2 & Prob.~3 & Prob.~4 & Prob.~5 & Prob.~6\\
-    \hline
-    &&&&&\\
-    \hline\hline
-  \end{tabular}
-\end{center}}{}
-\ifthenelse{\equal{\theproblems}{7}}{%
-\begin{center}
-  \LARGE\sf
-  \begin{tabular}{||c|c|c|c|c|c|c||}
-    \hline\hline
-    Prob.~1 & Prob.~2 & Prob.~3 & Prob.~4 & Prob.~5 & Prob.~6 & Prob.~7\\
-    \hline
-    &&&&&&\\
-    \hline\hline
-  \end{tabular}
-\end{center}}{}
-
+\end{center}
 
 \bigskip\bigskip
 
+\problemscontent{1}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{flushleft}
-  \addtocounter{problem}{1}
-  \large\sf Problem \theproblem .
-\end{flushleft}
-
-\input{problem1.tex}
-\addtocounter{problems}{-1}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
-\begin{flushleft}
-  \addtocounter{problem}{1}
-  \large\sf Problem \theproblem .
-\end{flushleft}
-
-\input{problem2.tex}
-\addtocounter{problems}{-1}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
-\begin{flushleft}
-  \addtocounter{problem}{1}
-  \large\sf Problem \theproblem .
-\end{flushleft}
-
-\input{problem3.tex}
-\addtocounter{problems}{-1}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\ifthenelse{\equal{\theproblems}{0}}
-{}%
-{%
-
-\newpage
-\begin{flushleft}
-  \addtocounter{problem}{1}
-  \large\sf Problem \theproblem .
-\end{flushleft}
-
-\input{problem4.tex}
-\addtocounter{problems}{-1}
-}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\ifthenelse{\equal{\theproblems}{0}}
-{}%
-{%
-\newpage
-\begin{flushleft}
-  \addtocounter{problem}{1}
-  \large\sf Problem \theproblem .
-\end{flushleft}
-
-\input{problem5.tex}
-\addtocounter{problems}{-1}
-}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\ifthenelse{\equal{\theproblems}{0}}
-{}%
-{%
-\newpage
-\begin{flushleft}
-  \addtocounter{problem}{1}
-  \large\sf Problem \theproblem .
-\end{flushleft}
-
-\input{problem6.tex}
-\addtocounter{problems}{-1}
-}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\ifthenelse{\equal{\theproblems}{0}}
-{}%
-{%
-\newpage
-\begin{flushleft}
-  \addtocounter{problem}{1}
-  \large\sf Problem \theproblem .
-\end{flushleft}
-
-\input{problem7.tex}
-\addtocounter{problems}{-1}
-}
 \end{document}
