@@ -1,0 +1,20 @@
+In the worst case, we insert the smallest number into tree, so we need to swap from the leaf to the root in \textit{bubble-up} way. That results in $\lfloor \log(n) \rfloor $.
+In the worst case after the delete, we replace the root with the largest value then we need to swap from the root to the leaf in \textit{bubble-down} way. That results in $\lfloor \log(n) \rfloor$.
+
+For amortized analysis, we can sum of degrees of all nodes as a potential function. Therefore, we sum \textit{logarithms} of all nodes and we have the following for $n$ items of a heap:
+
+  $$
+    \Phi = \sum_{i=2}^{n} \log i
+  $$
+
+\textit{insert} operation has a logarithmic amortized cost:
+
+  $$
+    amortized\text{ }cost = actual\text{ }cost + \Delta\Phi = \log(n) + \log(n+1) \equiv O(\log n)
+  $$
+  
+However, \textit{delete} operation has better amortized cost:
+
+  $$
+    amortized\text{ }cost = actual\text{ }cost + \Delta\Phi = \log(n) - \log(n) \equiv O(1)
+  $$
