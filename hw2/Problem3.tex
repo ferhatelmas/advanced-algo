@@ -1,10 +1,10 @@
 \begin{enumerate}
   \item 
-  In a deletemin operation, the worst case is when no leaf-node is marked deleted. Thus, in the melding process there will be $k+1$ subtrees that occured when deleting marked notes, but one will be decreased after deleting the minimum root of the remaining trees. Thus we have $k$ subtrees to meld.
+  In a \textit{delete-min} operation, the worst case is when nodes are deleted in breadth-first style and bottom nodes are still exist, not marked as deleted. This will result in $k+1$ different trees but in addition, we also need to delete the min of the remaining nodes and this also can divide one of the trees into two so increases the number of trees to be melded by 1. Thus, we have $k + 2$ subtrees to meld.
 
-  The sum of all nodes in the trees that are going to be melded is $n-k$. Since all trees are going to be melded together, the sequence of melding and the number of nodes of each tree is not of great importance to the final cost. Thus, we can assume that the total number of nodes is equally divided upon each tree. So every tree has $\frac{n - k}{k}$ nodes. That can be simplified to $\frac{n}{k}$
+  The sum of all nodes in the trees that are going to be melded is $n-k-1$. Since all trees are going to be melded together, the sequence of melding and the number of nodes of each tree is not of great importance to the final cost because only total number of nodes matters. Thus, we can assume that the total number of nodes is equally divided upon each tree. So every tree has $\frac{n - k - 1}{k + 2}$ nodes. That can be simplified to $\frac{n}{k}$ for sufficiently large values.
 
-  Now all we have to do is calculate the cost of meld for all trees:
+  Now all we have to do is to calculate the cost of melding for all trees:
   
   \begin{align*}
     \text{Melding of the two trees}   &= \log(2 \cdot (^n/_k)) \\
