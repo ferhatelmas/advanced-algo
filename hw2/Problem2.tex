@@ -40,7 +40,7 @@
         \item unless above equation is satisfied, we do the rearrangement.
       \end{itemize}
       
-      To make analysis of these two cases, we define potential function to be 
+      To make the analysis of these two cases, we define the following potential function where $left(v)$ and $right(v)$ denote \# of nodes in the subtree rooted in the left and right child of $v$, respectively.
       $$\Phi(v) = \max (left(v) - right(v) - 1, 0)$$
       
       Let's think we are doing rearrangement at node $v$ and its corresponding after rearrangement node is $v_0$. Before rearrangement this node has $\Phi(v) = O(|v|)$ and after rearrangement, $\Phi(v) = 0$. 

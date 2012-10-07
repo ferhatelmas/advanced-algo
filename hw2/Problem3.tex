@@ -31,29 +31,29 @@
  \end{align*}
 
  \item
- For amortized analysis of \textit{insert}, \textit{delete} and \textit{delete-min} operations, we can delegate analysis and use \textit{meld} operation. Therefore, potential function is:
+ For amortized analysis of \textit{insert}, \textit{delete} and \textit{delete-min} operations, we use the number of nodes, $k$,  whose delete bit is set. Therefore, potential function is:
  
  $$
-  \Phi = \text{Required meld operations}
+  \Phi = \text{\# of nodes whose delete bit is set} \cdot \log n
  $$
  
  \begin{itemize}
-   \item For \textit{delete}, we just need to search for the element to be deleted and no \textit{meld} is required.
-   \begin{align*}
-    \text{amortized cost} &= \text{actual cost} + \Delta\Phi \\                          
-                          &= \log n + 0 \cdot meld \leq O(\log n)   
-   \end{align*}
-   
-   \item For \textit{insert}, we create a new tree that is composed of only 1 node and meld it with actual tree so this operation required one \textit{meld}. 
+   \item For \textit{delete}, we just need to search for the element to be deleted and set it delete bit.
    \begin{align*}
     \text{amortized cost} &= \text{actual cost} + \Delta\Phi \\                          
                           &= \log n + 1 \cdot \log n \leq O(\log n)   
    \end{align*}
    
-   \item For \textit{delete-min}, we create multiple trees in the range of $t_k = [2, k+2]$ where $k$ is the number of nodes to be deleted physically without actual interested node of \textit{delete-min}.
+   \item For \textit{insert}, we create a new tree that is composed of only 1 node and meld it with actual tree so this operation doesn't change delete bits of nodes.
    \begin{align*}
     \text{amortized cost} &= \text{actual cost} + \Delta\Phi \\                          
-                          &= \log n + t_k \cdot \log n \leq O(\log n)   
+                          &= \log n + 0 \cdot \log n \leq O(\log n)   
+   \end{align*}
+   
+   \item For \textit{delete-min}, we create multiple trees in the range of $t_k = [2, k+2]$ where $k$ is the number of nodes to be deleted physically without \textit{min} of the nodes whose \textit{delete} bit isn't set. This operation removes all undesirable nodes from tree and compensate $k$ lazy deletes.
+   \begin{align*}
+    \text{amortized cost} &= \text{actual cost} + \Delta\Phi \\                          
+                          &= k \cdot \log (^n/_k) - k \cdot \log n \leq O(\log n)   
    \end{align*}
    
    This is a bit tricky potential function but it enables us to prove that all operations can be done in $O(\log n)$.
