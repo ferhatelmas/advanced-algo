@@ -38,7 +38,7 @@
  $$
  
  \begin{itemize}
-   \item For \textit{delete}, we just need to search for the element to be deleted and set it delete bit.
+   \item For \textit{delete}, we just need to search for the element to be deleted and set its delete bit.
    \begin{align*}
     \text{amortized cost} &= \text{actual cost} + \Delta\Phi \\                          
                           &= \log n + 1 \cdot \log n \leq O(\log n)   
@@ -50,7 +50,7 @@
                           &= \log n + 0 \cdot \log n \leq O(\log n)   
    \end{align*}
    
-   \item For \textit{delete-min}, we create multiple trees in the range of $t_k = [2, k+2]$ where $k$ is the number of nodes to be deleted physically without \textit{min} of the nodes whose \textit{delete} bit isn't set. This operation removes all undesirable nodes from tree and compensate $k$ lazy deletes.
+   \item For \textit{delete-min}, we create multiple trees in the range of $t_k = [2, k+2]$ where $k$ is the number of nodes to be deleted physically without \textit{min} of the nodes whose \textit{delete} bit isn't set. This operation removes all $k$ undesirable nodes from tree and compensate $k$ lazy deletes.
    \begin{align*}
     \text{amortized cost} &= \text{actual cost} + \Delta\Phi \\                          
                           &= k \cdot \log (^n/_k) - k \cdot \log n \leq O(\log n)   
