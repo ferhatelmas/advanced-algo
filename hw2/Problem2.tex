@@ -1,7 +1,16 @@
 \begin{enumerate}
   \item
-    As we have seen in the first question, the depth of a \textit{balanced} tree is $\log n$. If we have a node that has a \textit{depth} larger than $b \cdot \log n$, this is a sign of a unbalanced tree because $b$ is larger than 1 since $c$ is in the range of $(^1/_2, 1)$. Therefore, in the path from $x$ to \textit{root}, we will find a point where that unbalance comes from. Since tree is binary, if tree was balanced, each child would equally share the nodes of its parent, that means each child can have at most half of weight of its parent. However, it is unbalanced so one child will ceratinly have nodes under its subtrees more than half of weight of its parent.
+     Suppose there are no $u$ and $v$ satisfying $w(u) > c \cdot w(v)$. Given that $^1/_2 < c < 1$ implies that there is no child-node having more than half of the nodes of its parent-node, from itself to the insertion point of $x$. Thus, there are two cases: 
+    \begin{itemize}
+      \item 
+      the subtree will be heavier on the other direction which we aren't coming on but this will satisfy the above equation in one up level.
+      
+      \item 
+      all siblings should have equal weights and tree should be  balanced. As we have seen in the first question, the depth of a \textit{balanced} tree is $\log n$. Therefore, it is also impossible because $d(x) > b \cdot log n$ where $b > 1$.
+    \end{itemize}        
 
+    From these two cases, the tree is unbalanced. Therefore, in the path from $x$ to \textit{root}, we will find a point where that unbalance comes from. Since tree is binary, if tree was balanced, each child would equally share the nodes of its parent, that means each child can have at most half of weight of its parent. However, it is unbalanced so one child will certainly have nodes under its subtrees more than half of weight of its parent.
+    
   \item
    Since we rearrange the tree to make it balanced again when a node has a degree larger than $b \cdot \log n$, the height of tree will be bounded by the bound we do the rearrangement, which is $b \cdot \log n$, here.
   
