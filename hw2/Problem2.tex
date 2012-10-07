@@ -1,0 +1,26 @@
+\begin{enumerate}
+  \item
+    As we have seen in the first question, the depth of a \textit{balanced} tree is $\log n$. If we have a node that has a \textit{depth} larger than $b \cdot \log n$, this is a sign of a unbalanced tree because $b$ is larger than 1 since $c$ is in the range of $(^1/_2, 1)$. Therefore, in the path from $x$ to \textit{root}, we will find a point where that unbalance comes from. Since tree is binary, if tree was balanced, each child would equally share the nodes of its parent, that means each child can have at most half of weight of its parent. However, it is unbalanced so one child will ceratinly have nodes under its subtrees more than half of weight of its parent.
+
+  \item
+   Since we rearrange the tree to make it balanced again when a node has a degree larger than $b \cdot \log n$, the height of tree will be bounded by the bound we do the rearrangement, which is $b \cdot \log n$, here.
+  
+  \item
+  \begin{itemize}
+    \item \textit{find} operation can take the longest path in the worst case such as unsuccessful search. From point $2$, we know that the height of tree is bounded by $b \cdot \log n$ so the longest path is bounded by $O(\log n)$.
+    
+    \item \textit{add} operation is more complex compared with \textit{find}. Its cost is composed of executing find and then checking weights from the node, where the \textit{find} took us, to root (here we assume that each node knows to answer its weight) and doing rearrangement. In the worst case, we will rearrange the whole tree so we have the following $n$ items of tree and $T$ denotes the whole tree:
+    
+    \begin{align*}
+      add\text{ } &= find + weight\text{ }check + rearrangement \\
+                  &= O(\log n) + O(\log n) + sort(T) + create(T) \\
+                  &= O(\log n) + O(n \log n) + (2T(^n/_2) + O(1)) \\
+                  &= O(n \log n) + O(n) \\
+                  &= O(n \log n) \\
+    \end{align*}
+  \end{itemize}
+  
+  \item
+
+
+\end{enumerate}
