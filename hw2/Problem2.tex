@@ -41,7 +41,7 @@
       \end{itemize}
       
       To make analysis of these two cases, we define potential function to be 
-      $$\Phi = \max (left(v) - right(v) - 1, 0)$$
+      $$\Phi(v) = \max (left(v) - right(v) - 1, 0)$$
       
       Let's think we are doing rearrangement at node $v$ and its corresponding after rearrangement node is $v_0$. Before rearrangement this node has $\Phi(v) = O(|v|)$ and after rearrangement, $\Phi(v) = 0$. 
       After rebuild, height of the tree rooted at $v_0$ is $h(v_0) = \log(|v_0| + 1)$. Moreover, if there are $O(|v_0|)$ \textit{degenerate} insertions, $\Phi(v) = O(|v_0|)$, $\log(|v|) \leq \log(|v_0| + 1) + 1$ and $h(v) = h(v_0) + O(|v_0|)$ where each \textit{degenerate} insertion increased height by 1. Since $\Phi(v) = O(|v|)$ before rebuild, there were $O(|v|)$ insertions that didn't require a rebuild. Each one of them involves first case and is done in $O(\log n)$. The final insertion causes rebuild which is done in $O(|v|)$ that is analyzed in part 3. If we aggregate all of them, we have:      

@@ -1,0 +1,35 @@
+\begin{enumerate}
+  \item 
+  In a deletemin operation, the worst case is when no leaf-node is marked deleted. Thus, in the melding process there will be $k+1$ subtrees that occured when deleting marked notes, but one will be decreased after deleting the minimum root of the remaining trees. Thus we have $k$ subtrees to meld.
+
+  The sum of all nodes in the trees that are going to be melded is $n-k$. Since all trees are going to be melded together, the sequence of melding and the number of nodes of each tree is not of great importance to the final cost. Thus, we can assume that the total number of nodes is equally divided upon each tree. So every tree has $\frac{n - k}{k}$ nodes. That can be simplified to $\frac{n}{k}$
+
+  Now all we have to do is calculate the cost of meld for all trees:
+  
+  \begin{align*}
+    \text{Melding of the two trees}   &= \log(2 \cdot (^n/_k)) \\
+    \text{Melding of the three trees} &= \log(3 \cdot (^n/_k)) \\
+    \cdots  \\
+    \text{Melding the k trees}        &= \log(k \cdot (^n/_k)) \\
+  \end{align*}
+
+ that gives us:
+ $$
+  \sum_{i=2}^{k}{\log(i \cdot (^n/_k))} 
+ $$
+
+ by using \textit{logarithmic} property: 
+ $$
+  \log a + \log b = \log a \cdot b 
+ $$
+ 
+ above sum becomes: 
+ \begin{align*}
+   \log(2 \cdot 3 \cdot 4 \cdots k \cdot (^n/_k)^{k}) &= k \cdot \log {k! \cdot (^n/_k)} \\
+   &= O(k \cdot (\log 2 + \log 3 + \cdots + \log (^n/_k))) \\
+   &= O(k \cdot \log(^n/_k))
+ \end{align*}
+
+ \item
+
+\end{enumerate}
