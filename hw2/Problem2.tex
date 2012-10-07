@@ -21,11 +21,11 @@
     \item \textit{add} operation is more complex compared with \textit{find}. Its cost is composed of executing find and then checking weights from the node, where the \textit{find} took us, to root (here we assume that each node knows to answer its weight) and doing rearrangement. In the worst case, we will rearrange the whole tree so we have the following $n$ items of tree and $T$ denotes the whole tree:
     
     \begin{align*}
-      add\text{ } &= find + weight\text{ }check + rearrangement \\
+      add &= find + weight\text{ }check + rearrangement \\
                   &= O(\log n) + O(\log n) + sort(T) + create(T) \\
-                  &= O(\log n) + O(n \log n) + (2T(^n/_2) + O(1)) \\
-                  &= O(n \log n) + O(n) \\
-                  &= O(n \log n) \\
+                  &= O(\log n) + O(\log n)+ O(n) + (2T(^n/_2) + O(1)) \\
+                  &= O(\log n) + O(\log n)+ O(n) + O(n) \\
+                  &= O(n) \\
     \end{align*}
   \end{itemize}
   
