@@ -1,6 +1,6 @@
 \begin{enumerate}
   \item 
-  In a \textit{delete-min} operation, the worst case is when nodes are deleted in breadth-first style and bottom nodes are still exist, not marked as deleted. This will result in $k+1$ different trees but in addition, we also need to delete the min of the remaining nodes and this also can divide one of the trees into two so increases the number of trees to be melded by 1. Thus, we have $k + 2$ subtrees to meld.
+  In a \textit{delete-min} operation, the worst case is when nodes are deleted in breadth-first style and bottom nodes still exist, not marked as deleted. This will result in $k+1$ different trees but in addition, we also need to delete the min of the remaining nodes and this also can divide one of the trees into two so increases the number of trees to be melded by 1. Thus, we have $k + 2$ subtrees to meld.
 
   The sum of all nodes in the trees that are going to be melded is $n-k-1$. Since all trees are going to be melded together, the sequence of melding and the number of nodes of each tree is not of great importance to the final cost because only total number of nodes matters. Thus, we can assume that the total number of nodes is equally divided upon each tree. So every tree has $\frac{n - k - 1}{k + 2}$ nodes. That can be simplified to $\frac{n}{k}$ for sufficiently large values.
 
@@ -25,11 +25,39 @@
  
  above sum becomes: 
  \begin{align*}
-   \log(2 \cdot 3 \cdot 4 \cdots k \cdot (^n/_k)^{k}) &= k \cdot \log {k! \cdot (^n/_k)} \\
+   \log(2 \cdot 3 \cdot 4 \cdots k \cdot (^n/_k)^{k}) &= k \cdot \log (k! \cdot (^n/_k)) \\
    &= O(k \cdot (\log 2 + \log 3 + \cdots + \log (^n/_k))) \\
    &= O(k \cdot \log(^n/_k))
  \end{align*}
 
  \item
+ For amortized analysis of \textit{insert}, \textit{delete} and \textit{delete-min} operations, we can delegate analysis and use \textit{meld} operation. Therefore, potential function is:
+ 
+ $$
+  \Phi = \text{Required meld operations}
+ $$
+ 
+ \begin{itemize}
+   \item For \textit{delete}, we just need to search for the element to be deleted and no \textit{meld} is required.
+   \begin{align*}
+    \text{amortized cost} &= \text{actual cost} + \Delta\Phi \\                          
+                          &= \log n + 0 \cdot meld \leq O(\log n)   
+   \end{align*}
+   
+   \item For \textit{insert}, we create a new tree that is composed of only 1 node and meld it with actual tree so this operation required one \textit{meld}. 
+   \begin{align*}
+    \text{amortized cost} &= \text{actual cost} + \Delta\Phi \\                          
+                          &= \log n + 1 \cdot \log n \leq O(\log n)   
+   \end{align*}
+   
+   \item For \textit{delete-min}, we create multiple trees in the range of $t_k = [2, k+2]$ where $k$ is the number of nodes to be deleted physically without actual interested node of \textit{delete-min}.
+   \begin{align*}
+    \text{amortized cost} &= \text{actual cost} + \Delta\Phi \\                          
+                          &= \log n + t_k \cdot \log n \leq O(\log n)   
+   \end{align*}
+   
+   This is a bit tricky potential function but it enables us to prove that all operations can be done in $O(\log n)$.
+   
+ \end{itemize}
 
 \end{enumerate}
