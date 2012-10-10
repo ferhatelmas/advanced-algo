@@ -21,8 +21,9 @@ def fact(n):
 # change me
 n = 10
 
-cnt = 0.0
-for l in itertools.permutations(range(1, n+1)):
-  if find_max(l) == n:
-    cnt += 1
-print cnt / fact(n)
+for i in range(1, n+1):
+  cnt = 0.0
+  for l in itertools.permutations(range(1, i+1)):
+    if find_max(l) == i:
+      cnt += 1
+  print i, "->", cnt / fact(i)
