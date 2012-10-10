@@ -12,12 +12,17 @@ def find_max(l):
         return e
   return l[-1]
 
+def fact(n):
+  if n <= 1:
+    return n
+  else:
+    return n * fact(n-1)
+
 # change me
-l = range(1, 10)
+n = 10
 
-cnt = 0
-for l in itertools.permutations(range(1, 11)):
-  if find_max(l) == 10:
+cnt = 0.0
+for l in itertools.permutations(range(1, n+1)):
+  if find_max(l) == n:
     cnt += 1
-
-print cnt / 3628800.0
+print cnt / fact(n)
