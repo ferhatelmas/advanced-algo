@@ -1,8 +1,17 @@
-import itertools
-import math
+from itertools import permutations
+from sys import argv
 
-def find_max(l):
-  i, skip, m = 0, int(len(l)/math.e), -1
+def find_k(n):
+  total_prob = 0
+  for k in xrange(2, n+1):
+    for i in xrange(k, n+1):
+      total_prob += 1.0/(i-1)
+    total_prob *= ((k-1.0)/n)
+    if total_prob > 0.25:
+      return k
+
+def find_max(l, skip):
+  i, m = 0, -1
   for e in l:
     if i <= skip:
       m = max(m, e)
@@ -18,12 +27,9 @@ def fact(n):
   else:
     return n * fact(n-1)
 
-# change me
-n = 10
-
-for i in range(1, n+1):
-  cnt = 0.0
-  for l in itertools.permutations(range(1, i+1)):
-    if find_max(l) == i:
-      cnt += 1
-  print i, "->", cnt / fact(i)
+n = int(argv[1])
+cnt, k = 0.0, find_k(n)
+for l in permutations(range(1, n+1)):
+  if find_max(l, k) == n:
+    cnt += 1
+print "n: %d skip: %d prob: %.3f" % (n, k, cnt / fact(n))
