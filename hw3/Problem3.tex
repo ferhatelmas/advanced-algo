@@ -1,36 +1,31 @@
-  
-  We can assume that we have a requested sequence of elements :
+We can assume that we have a requested sequence of elements :
 
-$$A_{1}, A_{2}, A_{3}, … , A_{n-1}, A_{n}$$
+$$A_{1}, A_{2}, A_{3},\dots, A_{n-1}, A_{n}$$
 
-Then no matter what the initial structure of our elements was, the optimal stati
-c algorithm would produce a sequence that is exactly the same with the requested one:
+Then no matter what the initial structure of our elements was, the optimal static algorithm would produce a sequence that is exactly the same with the requested one:
 
-$$A_{1}, A_{2}, A_{3}, … , A_{n-1}, A_{n}$$
+$$A_{1}, A_{2}, A_{3},\dots, A_{n-1}, A_{n}$$
 
 Now let us suppose that the  initial structure of our elements is:
 
-$$A_{n}, A_{n-1}, … , A_{3}, A_{2}, A_{1}$$
+$$A_{n}, A_{n-1},\dots, A_{3}, A_{2}, A_{1}$$
 
 MTF actual cost analysis: \\
 
-  Given the above data structure and the requested sequence, the move-to-front alg
-orithm would need to search until the end of the list each time, and then move t
-hat element to the front. Given that an element can be moved to the front in con
-stant time, the actual cost for the given sequence would be n2. \\ 
+Given the above data structure and the requested sequence, the move-to-front algorithm would need to search until the end of the list each time, and then move that element to the front. Given that an element can be moved to the front in constant time, the actual cost for the given sequence would be $n^2$. \\ 
 
 OPTIMAL-STATIC cost analysis: \\
 
-  It appears that since the sequence of elements in the optimal list is the same w
-ith the sequence of requested elements, the actual cost of  would be the sum of an arithmetic progression with a1 = 1 and an = n. Thus the actual cost would be
+It appears that since the sequence of elements in the optimal list is the same with the sequence of requested elements, the actual cost would be the sum of an arithmetic progression with $a_1$ = 1 and $a_n$ = n. Thus the actual cost would be:
+$$
+  S = \frac {n(1+n)}{2} = \frac {n^2+n}{2}
+$$
 
-$$
-  S = \frac {n(1+n)}{2} = \frac {n2+n}{2}
-$$
+So the ratio between MTF and OPTIMAL-STATIC is:
 
 \begin{align*}
-	\lim_{n  \to \infty} {\frac{n^{2}}{\frac{n^{2}+n}{2}}} &=\lim_{n \to \infty} {\frac{2 n^{2}}{n^{2}+n}} \text{(using rule de l' hospital to calculate the limit)} \\
+	\lim_{n  \to \infty} {\frac{n^{2}}{\frac{n^{2}+n}{2}}} &=\lim_{n \to \infty} {\frac{2 n^{2}}{n^{2}+n}} \text{(using rule de l'hospital to calculate the limit)} \\
 	&= \lim_{n \to \infty} {\frac{4n}{2n}} = 2
 \end{align*}
 
-  As a result, we can claim that since the cost of the move-to-front algorithm is twice as that of the static optimal algorithm in the limit, then the competitive analysis for the move-to-front algorithm against the static optimal algorithm is asymptotically tight.
+As a result, we can claim that since the cost of the move-to-front algorithm is twice as that of the static optimal algorithm in the limit, then the competitive analysis for the move-to-front algorithm against the static optimal algorithm is asymptotically tight.
