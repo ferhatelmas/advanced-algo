@@ -11,7 +11,7 @@ Why this algorithm is correct is defined by a simple probability calculation:
 
 \begin{equation*}
   \begin{split}
-  P(k) &= \sum_{i=1}^{n} P(\text{$i$ selected} | \text{$i$ is the best}) \cdot P(\text{applicant $i$ is the best}) \\
+  P(k) &= \sum_{i=1}^{n} P(\text{$i$ selected} | \text{$i$ is the best}) \cdot P(\text{$i$ is the best}) \\
        &= (\sum_{i=1}^{k-1} 0 \cdot \frac{1}{n}) + (\sum_{i=r}^{n} P(
          \text{the best in the first $i-1$} 
          \text{is among the first $k-1$} | \text{$i$ is the best}) \cdot \frac{1}{n}) \\
