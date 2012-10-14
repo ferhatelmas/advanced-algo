@@ -1,0 +1,6 @@
+Let's say we have a request of $m$ elements with $n$ distinct elements in it. Then if $m=n$, any order of the list with those $n$ elements would give the same cost: $1+2+$...$+n$.\\
+Now assume we have elements in the request that appear more than once, then the order matters. The goal to minimize the cost is that the access cost of an element appearing often in the request should be low. Thus if we order the list given the number of time it appears in the request (frequency), we get the static optimal ordering. The optimized cost is:
+$$
+X_1*F_1+X_2*F_2+...+X_n*F_n
+$$
+Where $X_i$ is the access cost of element $i$ such that $X_i = i$ and $F_i$ the frequency of $i$ in the request such that $\forall i$, $F_i \geq F_{i+1}$. It's clear that if this last inequality is not satisfied we can only get a larger sum because $\forall i$, $X_i < X_{i+1}$.
