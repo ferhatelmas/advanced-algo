@@ -1,0 +1,81 @@
+\documentclass[a4paper,11pt]{article}
+  \def\myname{Bossy, Elmas, and Zerva}
+  \def\mynumber{5}
+
+  \newcounter{problems}
+  \setcounter{problems}{4}
+
+% DO NOT MODIFY THE REST OF THE FILE
+%%%% Recursive functions
+  \def\tableformat#1{
+    |c  
+    \ifnum#1<\theproblems
+      \tableformat{\number\numexpr#1+1}
+    \fi
+  }
+
+  \def\tablecontent#1{
+    \ifnum#1<\theproblems
+      Prob.~#1 &
+      \tablecontent{\number\numexpr#1+1}
+    \fi 
+    \ifnum#1=\theproblems
+      Prob.~#1
+    \fi
+  }
+
+  \def\tablevoid#1{
+    \ifnum#1<\theproblems
+      &
+      \tablevoid{\number\numexpr#1+1}
+    \fi
+  }
+
+  \def\problemscontent#1{
+    \ifnum#1>\theproblems\else
+      \ifnum#1>1\newpage\fi
+      \addtocounter{problem}{1}
+      \begin{flushleft}
+        \large\sf Problem \theproblem .
+      \end{flushleft}
+      \input{Problem#1.tex}
+      \problemscontent{\number\numexpr#1+1}
+    \fi
+  }
+
+%%%%%
+  \usepackage{times,amsmath,pslatex,graphicx,ifthen}
+  \newcounter{problem}
+  \setcounter{problem}{0}
+  \makeatletter
+  \def\ps@headings{%
+    \let\@mkboth\markboth
+    \def\@evenfoot{\hfil\large\sf Homework \mynumber, Problem \theproblem\hfil}
+    \def\@oddfoot{\@evenfoot}
+    \def\@evenhead{\large\sc\myname\hfil\it\today\hfil\sf P.~\thepage}
+    \def\@oddhead{\@evenhead}}
+  \makeatother
+  \pagestyle{headings}
+  \advance\textwidth by16mm
+  \advance\oddsidemargin by-8mm
+  \advance\textheight by10mm
+%%%%%
+
+\begin{document}
+
+\begin{center}
+  \LARGE\sf
+  \begin{tabular}{|\tableformat{1}||}
+    \hline\hline
+    \tablecontent{1} \\
+    \hline
+    \tablevoid{1}\\
+    \hline\hline
+  \end{tabular}
+\end{center}
+
+\bigskip\bigskip
+
+\problemscontent{1}
+
+\end{document}
