@@ -1,8 +1,12 @@
 just checking degree if it is 1, take edge
 we are going over vertexes to check their degree, if degree is 1, we take its edge
-then we go over higher degree vertexes, if there aren't connected, we take their smallest cost edge
+then we go over higher degree vertices, if there aren't connected, we take their smallest cost edge
 
 we can have a set S with unexplored vertices
 take one vertice, if it is degree=1 put the vertice + the edge in the graph
 
 but we have to connect the vertices  of degree 1 first
+
+for proof: we need to show that in the MST, we have 6 unused edges from the original graph.
+
+for vertices, their degree is bigger than 1, we could add other edges but algorithm chooses their min edge so if we add another edges, total cost would be higher.
