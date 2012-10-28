@@ -1,1 +1,35 @@
+This question is well-known as degree sequence problem.
+
+Firstly, we need to be sure the degrees sum up to an even number due to \textit{handshaking lemma} because every edge has two end points and each edge contributes to total degree by 2. Summation of even numbers is even. Therefore, 
+$$
+  if\text{ }sum(a_1, a_2, \dots, a_n) = 2 \cdot k + 1\text{ }where\text{ }k \geq 0\rightarrow No
+$$
+
+Otherwise, we continue analysis and check another claim to be hold. We sort degrees in descending order to make comparison between high degree vertices and small degree vertices. For $n$ vertices, this can be achieved by a regular sorting algorithm in $O(n \log n)$ time.
+
+\begin{table}[ht]
+\begin{center}
+\begin{tabular}{|*{10}{c|}}
+  \hline  
+  $a_1$ & $a_2$ & \multicolumn{3}{p{3cm}|}{ \hspace{1.2cm}$\dots$ } & $a_k$ & \multicolumn{3}{p{3cm}|}{ \hspace{1.2cm}$\dots$ } & $a_n$ \\
+  \hline
+\end{tabular}
+\caption{Degree Sequence after sorting in descending order}
+\end{center}
+\end{table}
+
+For the analysis, we will call vertices from $1$ to $k$, including $k$, \textit{high degree} vertices, $S_H$ and the rest will be called \textit{small degree} vertices, $S_S$. Since we have chosen $k$, it can be at anywhere from $1$ to $n$, more precisely $1 \leq k \leq n$.
+
+We can devise an inequality between $S_H$ and $S_S$. Each edge that has one end point in $S_H$, can totally be between two high degree vertices so its two end points in $S_H$. Since we have $k$ vertices in $S_H$, we can have $\frac{k \cdot (k+1)}{2}$ edges at most which contributes to degree sum by $k \cdot (k+1)$ via \textit{handshaking lemma}. Moreover, an edge that has one end point in $S_H$, may have its other end point in $S_S$ so vertices in $S_S$ can contribute to degree sum by their degrees or $k$ if their degrees are larger than $k$ because we have $k$ nodes in the $S_H$ and it must have some of its adjacent vertices in $S_S$. Moreover, since this degree sum is the maximum possible, sum of degrees of vertices in $S_H$ must be equal or less than above two summation. More precisely , this discussion results:
+
+$$
+  \sum_{i=1}^{k} d_i \leq k \cdot (k+1) + \sum_{i=k+1}^{n} min(d_i, k) \text{ where } 1 \leq k \leq n
+$$ 
+
+These inequality can be calculated by two nested loops, one for $k$ and one for $i$ so it gives us $O(n^2)$ algorithm since sorting cost is dominated by this inequality check.
+
+If this inequality doesn't hold, we can immediately say that simple graph from given sequence is impossible because right part is maximum and nodes have degree sum more than possible maximum. However, the other way if this is a sufficient condition is more involved. 
+
+For this part, we can use induction in that way: a graph with no edges is a simple graph and for higher degrees, we find last index $l$ of a degree $d$ such that $d_l > d_{l+1}$. Here, we can add or remove one edge between these two vertices without changing degrees of other vertices and coming closer to desired degree by 1. If it is a simple graph before doing addition or deletion, it will still be a simple graph because chosen vertices are different that prevents self loops and their degrees differ that prevents multi-edges.
+
 %http://en.wikipedia.org/wiki/Degree_%28graph_theory%29
