@@ -1,6 +1,20 @@
-here, I don't really get how to calculate the gain of reliability
-do we have to construct our own function to calculate it?
-in some sense, we need to bound it 
-but I think it would be easier after asking
+Apparently, allocation of each file is an independent event, so the problem could be reduced to figuring out the allocation scheme of one file.
 
-for example, we can assume only nodes access file can update them
+Suppose we have the file $F_1$, $n$ nodes and a known sequence of retrieval and update requests for this file. As far as retrieval requests are concerned, the order of retrievals isn't of interest to us. What really matters is the frequency with which each node requests this particular file. Moreover, the sequence of update requests, or the node that issues the request does not matter since we know that in an update request all copies of the requested file should be updated in every node. Thus, we are only interested in the sum of the bytes we would have to update.
+
+Therefore, the total cost of an allocation scheme of $F_1$ would be the sum of the \textit{total retrieval cost}, \textit{the total update cost} minus \textit{the gain in reliability}.
+
+\begin{itemize}
+  \item Total retrieval cost: let the total bytes (of all retrieval requests for file $F_1$) requested by node $i$ be $B_i$,then retrieval cost for file $F_1$ when $F_1$ is assigned to no node is $ \sum_{i=1}^{n} B_i $
+
+  \item Total update cost: let the total bytes (of all update requests for $F_1$) requested be $U$ then retrieval cost for $F_1$ when $F_1$ is on $C$ nodes is $U \cdot C$.
+
+  \item The gain in reliability follows the rule of diminishing return; thus, we know that for $C$ copies, $g(C) > g(C+1)$ Example of law of diminishing returns application: $ \frac{1}{X}\sum_{i=1}^{X}\frac{1}{2^{i-1}} = D$
+\end{itemize}
+
+It is clear that for $C$ copies of $F_1$, the total cost depends upon the retrieval requests, so we order the nodes based on the total number of bytes they request of a specific file in a descending order. Initially the \textit{total update cost} is equal to zero and the \textit{total retrieval cost} is maximum. Then we take the first node and since this is the node that requests most bytes of the file we put the file there. For the rest of the nodes the procedure is the following: We consider the next node in order. In order to decide whether to put the file in the next node we calculate the new total cost with the file in that node.
+
+In case we decide to put the file in this node: \\
+The \textit{total retrieval cost} will be decreased by $B_i$ where $B_i$ the total number of bytes that this node will request, so: $$new\text{ }retrieval\text{ }cost = old\text{ }retrieval\text{ }cost - B_i$$ and the \textit{update cost} will increase by the number of the totally requested since a new copy will be added, so if \textit{update cost} was $C \cdot U$ the \textit{new update cost} will be $(C+1) \cdot U$. Furthermore, the \textit{reliability gain} will slightly increase.
+
+As a result, we compare the new total cost to the previous one and if it is smaller we add that file in the node. Then we proceed with the next node in the order, until the new total cost is no longer smaller than the previous one. In that case we stop and the allocation scheme is complete.
