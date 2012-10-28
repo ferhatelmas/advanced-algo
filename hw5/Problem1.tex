@@ -1,12 +1,14 @@
-just checking degree if it is 1, take edge
-we are going over vertexes to check their degree, if degree is 1, we take its edge
-then we go over higher degree vertices, if there aren't connected, we take their smallest cost edge
+Since we know that the number of edges is $|V| + 5$, we also know that in order to create a tree, we need to remove 6 edges because there will be 6 circles in the initial graph. Thus, we iterate through the graph (vertices) once until we detect a cycle by \textit{Tarjan's strongly connected components algorithm} (we use it as a \textit{black box} where it has a complexity of $O(|V|)$ if $O(|E|) = O(|V|)$). After detecting a cycle, we check the edges we iterated through in order to get the most expensive one and remove it. We repeat the above procedure 6 times. Searching for a circle will cost $O(|V|)$ each time, since we have a sparse graph. Also the search for the most expensive edge is bounded by $O(|V|)$ since not all edges will be part of the circle except for the last iteration. Since we have a certain finite number of searches(6), total cost is linear in the number of vertices:
 
-we can have a set S with unexplored vertices
-take one vertice, if it is degree=1 put the vertice + the edge in the graph
+\begin{align*}
+  Cost &= 6 \cdot (\textit{find cycle by Tarjan's algorithm} + \textit{find highest cost edge in cycle}) \\
+       &= 6 \cdot (O(|E|) + O(|V|)) \\
+       &= 6 \cdot (O(|V|) + O(|V|)) \\
+       &= 6 \cdot (O(|V|)) \leq O(|V|) \\
+\end{align*}
 
-but we have to connect the vertices  of degree 1 first
+Proceeding to the proof of correctness and optimality:
 
-for proof: we need to show that in the MST, we have 6 unused edges from the original graph.
+After the algorithm terminates our tree has exactly $|V|-1$ edges and since all removed edges belonged to a circle the graph has no more circles now, it is a tree by definition. 
 
-for vertices, their degree is bigger than 1, we could add other edges but algorithm chooses their min edge so if we add another edges, total cost would be higher.
+As for optimality, suppose there is a different optimal solution. Let $O$ denotes optimal solution and $G$ be our solution. Suppose that $O$ and $E$ differ in one edge only and that $cost(O) < cost(G)$ (Notice that equality gives a different tree but doesn't violate optimality). We also know that since all nodes are included in both minimum spanning trees adding any edge creates a cycle. Therefore, suppose we add to the tree $O$ the edge that exists in $G$ and does not exist in $O$. Then a cycle is created and by definition this is a cycle contained in the original graph, meaning that this edge has not been removed in $G$. Then since $G$ is removing the most expensive edges in all cycles remained in the original tree, the only valid assumption is that this edge has the same cost as one or more other edge in the cycle because otherwise $O$ cannot be optimal since interchanging the edges will create a better solution. This must hold for any edge added to $O$ and thus all edges differing between $O$ and $G$ must be of equal cost, meaning $G$ is equal to the optimal solution.
