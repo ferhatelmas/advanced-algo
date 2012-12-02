@@ -2,7 +2,7 @@ Our recursive \textit{dynamic programming} algorithm:
 \begin{itemize}
   \item Divide the sequence of matrices into two sequences
   \item Find the cost of the multiplication of each sequence.  
-  \item If the cost of the multiplication is in the table, then simple return it. Otherwise, recursively calculate and add final cost into the cost table. Here, base case is  the multiplication of two matrices. When base is arrived, we just return the cost: If we have two $M_1$ is a $k x l$ matrix and $M_2$ is a  $l x m$ matrix, then the cost of the multiplication $C$ is $klm$. For example, $M_1(20 x 30)$ and $M_2(30 x 10)$, cost $C$ is $20 x 30 x 10 = 6000$.
+  \item If the cost of the multiplication is in the table, then simply return it. Otherwise, recursively calculate and add final cost into the cost table. Here, base case is  the multiplication of two matrices. When base is arrived, we just return the cost: If we have two $M_1$ is a $k \times l$ matrix and $M_2$ is a  $l \times m$ matrix, then the cost of the multiplication $C$ is $klm$. For example, $M_1(20 \times 30)$ and $M_2(30 \times 10)$, cost $C$ is $20 \cdot 30 \cdot 10 = 6000$.
   \item Sum up the costs of the subsequences and record it as a candidate for the optimal cost of the original sequence.
   \item Repeat above three steps for original sequence where it can be divided into two sequences and take the minimum of all calculated candidate costs and store it into the cost table for the cost of the original sequence.
 \end{itemize}
