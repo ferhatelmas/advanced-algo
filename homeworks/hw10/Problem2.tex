@@ -12,16 +12,16 @@ With defined $delay(i, j, k)$ function, we can easily devise the minimum cost of
 $$
   \min(delay(1, 1, n), delay(n, 1, n))
 $$ 
-In each step, (with explained $i$) we will chop off  leftmost or rightmost point and then take their min. Base case of our recursive algorithm is the interval with length of 2 when we simply return the difference between two given points.
+In each step, (with explained $i$) we will chop off  leftmost or rightmost point and then take their min. Base case of our recursive algorithm is the interval with length of 1 when we simply return 0.
 
 $$delay(i, j, k) = \left\{ 
   \begin{array}{l l}
-    min( \\ \hspace{.2cm} dist(j, j+1) + 2 \cdot delay(j+1, j+1, k), \\ \hspace{.2cm} dist(k, k-1) + 2 \cdot delay(k-1, j, k-1)) & \quad \text{if } k-j+1 > 2 \\
-    dist(j, k) & \quad \text{if } k-j+1 = 2
+    min( \\ \hspace{.2cm} dist(j, j+1) + 2 \cdot delay(j+1, j+1, k), \\ \hspace{.2cm} dist(k, k-1) + 2 \cdot delay(k-1, j, k-1)) & \quad \text{if } k-j+1 > 1 \\
+    0 & \quad \text{if } k-j+1 = 1
   \end{array} \right.
 $$
 
-2 in the above algorithm comes from the nature of the delay function: while visiting point $i$, all visiting costs prior to $i$ are added into delay of $i$.
+Multiplier 2 in the above algorithm comes from the nature of the delay function: while visiting point $i$, all visiting costs prior to $i$ are added into delay of $i$.
 $$
   \sum_{i=2}^{n}{\sum_{j=2}^{i}{dist(i, j)}}
 $$
