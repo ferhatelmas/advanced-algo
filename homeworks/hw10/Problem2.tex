@@ -1,0 +1,33 @@
+Firstly, we draw attention onto some important characteristics of the problem:
+\begin{itemize}
+  \item Points must be traversed one by one because turning the direction (other than points) only increases the total delay.
+  \item Visiting points is costless when we get there. Thus, if we are passing a non-visited node, we should note it as visited. As a result of this property, we can define an interval as visited. That's why next candidate point is the one right or left of the interval. 
+\end{itemize}
+
+We need differences between points so we create a matrix of $n \times n$ to store differences. This matrix is created in $O(n^2)$. After we get matrix, we can lookup differences in $O(1)$.
+
+Since we could see visiting process as an interval, we want a $n-length$ interval. We define our function(states) as $delay(i, j, k)$ where it is the total cost at point $i$ with leftmost point $j$ and rightmost point $k$. Since in an interval all points are visited, visiting a new point can extend the interval. Therefore, $delay(i, j, k)$ seems to have $n^3$ states but $i$ actually can be equal to only $j$ or $k$ which means $i$ is just a binary flag. As a result, we have only $n^2$ states.
+
+With defined $delay(i, j, k)$ function, we can easily devise the minimum cost of $n-length$ path by
+$$
+  \min(delay(1, 1, n), delay(n, 1, n))
+$$ 
+In each step, (with explained $i$) we will chop off  leftmost or rightmost point and then take their min. Base case of our recursive algorithm is the interval with length of 2 when we simply return the difference between two given points.
+
+$$delay(i, j, k) = \left\{ 
+  \begin{array}{l l}
+    min( \\ \hspace{.2cm} dist(j, j+1) + 2 \cdot delay(j+1, j+1, k), \\ \hspace{.2cm} dist(k, k-1) + 2 \cdot delay(k-1, j, k-1)) & \quad \text{if } k-j+1 > 2 \\
+    dist(j, k) & \quad \text{if } k-j+1 = 2
+  \end{array} \right.
+$$
+
+2 in the above algorithm comes from the nature of the delay function: while visiting point $i$, all visiting costs prior to $i$ are added into delay of $i$.
+$$
+  \sum_{i=2}^{n}{\sum_{j=2}^{i}{dist(i, j)}}
+$$
+
+In analysis, our $delay$ function has $n^2$ states because $j$ and $k$ parameters can take any value from $[1, n]$, precisely $\sum_{j=1}^{n-1}{\sum_{k=j+1}^{n}{1}} \leq O(n^2)$. Moreover, we need to run algorithm for different starting points since we have $O(n)$ points and each run is $O(n^2)$, we get $O(n) \cdot O(n^2) \leq O(n^3)$ overall. Other costs such as finding actual path after getting minimum(optimal) delay or creating $n \times n$ matrix for differences will be dominated by $O(n^3)$.
+
+Next, we will define the procedure to get the actual path since question asks us for it. We can modify the above algorithm (adding $O(1)$ time work) to make bookkeeping where it found the optimal. Therefore, we add predecessor pointer which is only the number of the point in the list. For $delay(i, j, k)$, if we came from $j+1$, we add $j+1$ for $i$. Otherwise, we add $k-1$. Therefore, following these pointers in the reverse order gives us the actual path.
+
+One final remark is that we assumed that points are given in sorted order. However, it isn't a problem because we can sort by ourselves unless they are in sorted order and it will also be dominated.
